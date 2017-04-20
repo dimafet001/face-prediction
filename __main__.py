@@ -1,4 +1,4 @@
-import numpy as numpy
+import numpy as np
 import matplotlib.pyplot as plt
 # %matplotlib inline
 
@@ -24,8 +24,19 @@ data = fetch_olivetti_faces().images
 X = data[:,:, : len(data[0][0])/2 ]
 Y = data[:,:,   len(data[0][0])/2 : ]
 
-plt.subplot(1, 2, 1)
-plt.imshow(X[0], cmap='gray')
-plt.subplot(1, 2, 2)
-plt.imshow(Y[0], cmap='gray')
+
+# shows the example of divided face
+# plt.subplot(1, 2, 1)
+# plt.imshow(X[0], cmap='gray')
+# plt.subplot(1, 2, 2)
+# plt.imshow(Y[0], cmap='gray')
+# plt.show()
+
+# join two pics in one
+def glue(left_half, right_half):
+	left_half = left_half.reshape([-1, 64, 32])
+	right_half = right_half.reshape([-1, 64, 32])
+	return np.concatenate([left_half, right_half], axis=-1)
+
+plt.imshow(glue(X,Y)[99], cmap='gray')
 plt.show()
